@@ -1,0 +1,32 @@
+services:
+  backend:
+    build:
+      context: ./mock-api-backend
+    image: mock-api:latest
+    environment:
+      # Where the service persists YAML configurations (backed by a named volume).
+      FILES_UPLOAD_FOLDER: /data/configurations/
+      # CORS origins allowed for /config and /endpoint. The browser issues a
+      # preflight (OPTIONS) with Origin http://localhost:8081 — the published
+      # frontend origin — so it must be allowed or the preflight 403s.
+      CORS_ALLOWED_ORIGINS: http://localhost:8081
+    volumes:
+      - mock_api_data:/data/configurations
+    # Exposed for direct access / debugging; the UI reaches it over the internal
+    # network as http://backend:8080 (see mock-api-ui/nginx.conf).
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./mock-api-frontend
+    image: mock-api-ui:latest
+    depends_on:
+      - backend
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+
+volumes:
+  mock_api_data:
