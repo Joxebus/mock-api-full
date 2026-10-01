@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "4539e062-736b-401c-b97f-4b61c7e56e3b",
+		"name": "Mock REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2715528",
+		"_collection_link": "https://choice-omar.postman.co/workspace/Team-Workspace~05b726d9-4fc4-4c02-8549-fafd48a9fd17/collection/2715528-4539e062-736b-401c-b97f-4b61c7e56e3b?action=share&creator=2715528&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Create Mock API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"secured-api-v2\",\n  \"description\": \"This is sample API to mock REST endpoint\",\n  \"termsOfService\": \"http://example.com/terms/\",\n  \"contact\": {\n    \"name\": \"API Support\",\n    \"url\": \"http://www.example.com/support\",\n    \"email\": \"support@example.com\"\n  },\n  \"license\": {\n    \"name\": \"Apache 2.0\",\n    \"url\": \"https://www.apache.org/licenses/LICENSE-2.0.html\"\n  },\n  \"version\": \"1.0.1\",\n  \"secured\": true,\n  \"authConfig\": \"am94ZWJ1czpNb2NrQVBJ\",\n  \"paths\": {\n    \"GLOSARY\": [{\n      \"method\": \"get\",\n      \"headers\": {\n        \"author\": [\n          \"Omar Bautista\", \"Joxebus\"\n        ]\n      },\n      \"statusCode\": 200,\n      \"body\": \"{\\n  \\\"ID\\\": \\\"SGML\\\",\\n  \\\"SortAs\\\": \\\"SGML\\\",\\n  \\\"GlossTerm\\\": \\\"Standard Generalized Markup Language\\\",\\n  \\\"Acronym\\\": \\\"SGML\\\",\\n  \\\"Abbrev\\\": \\\"ISO 8879:1986\\\",\\n  \\\"GlossDef\\\": {\\n    \\\"para\\\": \\\"A meta-markup language, used to create markup languages such as DocBook.\\\",\\n    \\\"GlossSeeAlso\\\": [\\\"GML\\\", \\\"XML\\\"]\\n  },\\n  \\\"GlossSee\\\": \\\"markup\\\"\\n}\"\n    }],\n    \"MENU\": [{\n      \"method\": \"put\",\n      \"headers\": {\n        \"author\": [\n          \"Omar Bautista\", \"Joxebus\"\n        ]\n      },\n      \"statusCode\": 202,\n      \"body\": \"{\\\"menu\\\": {\\n  \\\"id\\\": \\\"file\\\",\\n  \\\"value\\\": \\\"File\\\",\\n  \\\"popup\\\": {\\n    \\\"menuitem\\\": [\\n      {\\\"value\\\": \\\"New\\\", \\\"onclick\\\": \\\"CreateNewDoc()\\\"},\\n      {\\\"value\\\": \\\"Open\\\", \\\"onclick\\\": \\\"OpenDoc()\\\"},\\n      {\\\"value\\\": \\\"Close\\\", \\\"onclick\\\": \\\"CloseDoc()\\\"}\\n    ]\\n  }\\n}}\"\n    }],\n    \"CREATE_PERSON\": [{\n      \"method\": \"post\",\n      \"headers\": {\n        \"author\": [\n          \"Omar Bautista\", \"Joxebus\"\n        ]\n      },\n      \"statusCode\": 201,\n      \"body\": null\n    }],\n    \"FAILURE\": [{\n      \"method\": \"delete\",\n      \"headers\": {\n        \"author\": [\n          \"Omar Bautista\", \"Joxebus\"\n        ]\n      },\n      \"statusCode\": 500,\n      \"body\": \"{\\n  \\\"message\\\": \\\"This is a custom error configured on the Mock API\\\"\\n}\"\n    }]\n  }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/config",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Configuration",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/config/secured-api-v2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"config",
+						"secured-api-v2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Configuration",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/config/secured-api-v2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"config",
+						"secured-api-v2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Endpoints",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/endpoint",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"endpoint"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Endpoint Sample API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/endpoint/secured-api-v2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"endpoint",
+						"secured-api-v2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Sample API GLOSARY",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "am94ZWJ1czpNb2NrQVBJ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/secured-api-v2/GLOSARY",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"secured-api-v2",
+						"GLOSARY"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Sample API MENU",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "am94ZWJ1czpNb2NrQVBJ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"menu\": {\n        \"id\": \"file\",\n        \"value\": \"File\",\n        \"popup\": {\n            \"menuitem\": [\n                {\n                    \"value\": \"New\",\n                    \"onclick\": \"CreateNewDoc()\"\n                },\n                {\n                    \"value\": \"Open\",\n                    \"onclick\": \"OpenDoc()\"\n                },\n                {\n                    \"value\": \"Close\",\n                    \"onclick\": \"CloseDoc()\"\n                }\n            ]\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/secured-api-v2/MENU",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"secured-api-v2",
+						"MENU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Sample API CREATE_PERSON",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "am94ZWJ1czpNb2NrQVBJ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Omar\",\n    \"lastname\":\"Bautista\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/secured-api-v2/CREATE_PERSON",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"secured-api-v2",
+						"CREATE_PERSON"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Sample API FAILURE",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "am94ZWJ1czpNb2NrQVBJ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/secured-api-v2/FAILURE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"secured-api-v2",
+						"FAILURE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mock Api not cofigured",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/not/CONFIGURED",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"not",
+						"CONFIGURED"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
