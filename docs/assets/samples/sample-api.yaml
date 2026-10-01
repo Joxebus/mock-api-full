@@ -1,0 +1,55 @@
+---
+name: "secured-api-v1"
+description: "This is sample API to mock REST endpoint"
+termsOfService: "http://example.com/terms/"
+version: "1.0.1"
+contact:
+  name: "API Support"
+  url: "http://www.example.com/support"
+  email: "support@example.com"
+license:
+  name: "Apache 2.0"
+  url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+secured: true
+authConfig: "am94ZWJ1czpNb2NrQVBJ"
+paths:
+  GLOSARY:
+    - method: "get"
+      headers:
+        author:
+          - "Omar Bautista"
+          - "Joxebus"
+      statusCode: 200
+      body: "{\n  \"ID\": \"SGML\",\n  \"SortAs\": \"SGML\",\n  \"GlossTerm\": \"Standard\
+      \ Generalized Markup Language\",\n  \"Acronym\": \"SGML\",\n  \"Abbrev\": \"\
+      ISO 8879:1986\",\n  \"GlossDef\": {\n    \"para\": \"A meta-markup language,\
+      \ used to create markup languages such as DocBook.\",\n    \"GlossSeeAlso\"\
+      : [\"GML\", \"XML\"]\n  },\n  \"GlossSee\": \"markup\"\n}"
+  MENU:
+    - method: "put"
+      headers:
+        author:
+          - "Omar Bautista"
+          - "Joxebus"
+      statusCode: 202
+      body: "{\"menu\": {\n  \"id\": \"file\",\n  \"value\": \"File\",\n  \"popup\"\
+      : {\n    \"menuitem\": [\n      {\"value\": \"New\", \"onclick\": \"CreateNewDoc()\"\
+      },\n      {\"value\": \"Open\", \"onclick\": \"OpenDoc()\"},\n      {\"value\"\
+      : \"Close\", \"onclick\": \"CloseDoc()\"}\n    ]\n  }\n}}"
+  CREATE_PERSON:
+    - method: "post"
+      headers:
+        author:
+          - "Omar Bautista"
+          - "Joxebus"
+      statusCode: 201
+      body: null
+  FAILURE:
+    - method: "delete"
+      headers:
+        author:
+          - "Omar Bautista"
+          - "Joxebus"
+      statusCode: 500
+      body: "{\n  \"message\": \"This is a custom error configured on the Mock API\"\
+      \n}"

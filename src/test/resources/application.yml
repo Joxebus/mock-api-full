@@ -1,0 +1,3 @@
+file:
+  upload:
+    folder: ${FILES_UPLOAD_TEST_FOLDER:/tmp/test_mock_api_configurations/}  # only for local profile
