@@ -1,0 +1,154 @@
+{
+  "name": "orders-api",
+  "description": "Orders, payments and shipments. Secured: send 'Authorization: Bearer test-token-123'.",
+  "termsOfService": "http://example.com/terms/",
+  "version": "1.0.0",
+  "contact": {
+    "name": "Mock API Team",
+    "url": "http://example.com/support",
+    "email": "support@example.com"
+  },
+  "license": {
+    "name": "Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+  },
+  "secured": true,
+  "authConfig": "Bearer test-token-123",
+  "paths": {
+    "orders": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": \"ORD-1001\",\n    \"customerId\": 1,\n    \"status\": \"SHIPPED\",\n    \"total\": 125.9\n  },\n  {\n    \"id\": \"ORD-1002\",\n    \"customerId\": 2,\n    \"status\": \"PAID\",\n    \"total\": 35.0\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/orders-api/orders/ORD-1003"
+          ]
+        },
+        "body": "{\n  \"id\": \"ORD-1003\",\n  \"customerId\": 3,\n  \"status\": \"PENDING\",\n  \"total\": 24.99,\n  \"items\": [\n    {\n      \"productId\": 103,\n      \"quantity\": 1\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": \"ORD-1003\",\n  \"customerId\": 3,\n  \"status\": \"CANCELLED\",\n  \"total\": 24.99\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "payments": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": \"PAY-501\",\n    \"orderId\": \"ORD-1001\",\n    \"method\": \"CARD\",\n    \"amount\": 125.9,\n    \"status\": \"CAPTURED\"\n  },\n  {\n    \"id\": \"PAY-502\",\n    \"orderId\": \"ORD-1002\",\n    \"method\": \"PAYPAL\",\n    \"amount\": 35.0,\n    \"status\": \"CAPTURED\"\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/orders-api/payments/PAY-503"
+          ]
+        },
+        "body": "{\n  \"id\": \"PAY-503\",\n  \"orderId\": \"ORD-1003\",\n  \"method\": \"CARD\",\n  \"amount\": 24.99,\n  \"status\": \"AUTHORIZED\"\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": \"PAY-503\",\n  \"orderId\": \"ORD-1003\",\n  \"method\": \"CARD\",\n  \"amount\": 24.99,\n  \"status\": \"REFUNDED\"\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "shipments": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": \"SHP-901\",\n    \"orderId\": \"ORD-1001\",\n    \"carrier\": \"FastShip\",\n    \"trackingNumber\": \"FS000000001\",\n    \"status\": \"DELIVERED\"\n  },\n  {\n    \"id\": \"SHP-902\",\n    \"orderId\": \"ORD-1002\",\n    \"carrier\": \"ParcelGo\",\n    \"trackingNumber\": \"PG000000002\",\n    \"status\": \"IN_TRANSIT\"\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/orders-api/shipments/SHP-903"
+          ]
+        },
+        "body": "{\n  \"id\": \"SHP-903\",\n  \"orderId\": \"ORD-1003\",\n  \"carrier\": \"FastShip\",\n  \"trackingNumber\": \"FS000000003\",\n  \"status\": \"LABEL_CREATED\"\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": \"SHP-902\",\n  \"orderId\": \"ORD-1002\",\n  \"carrier\": \"ParcelGo\",\n  \"trackingNumber\": \"PG000000002\",\n  \"status\": \"DELIVERED\"\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ]
+  }
+}

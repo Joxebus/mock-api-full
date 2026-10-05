@@ -1,0 +1,154 @@
+{
+  "name": "products-api",
+  "description": "Product catalog with categories and stock levels.",
+  "termsOfService": "http://example.com/terms/",
+  "version": "1.0.0",
+  "contact": {
+    "name": "Mock API Team",
+    "url": "http://example.com/support",
+    "email": "support@example.com"
+  },
+  "license": {
+    "name": "Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+  },
+  "secured": false,
+  "authConfig": null,
+  "paths": {
+    "products": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 101,\n    \"sku\": \"SKU-101\",\n    \"name\": \"Mechanical Keyboard\",\n    \"price\": 89.9,\n    \"categoryId\": 1\n  },\n  {\n    \"id\": 102,\n    \"sku\": \"SKU-102\",\n    \"name\": \"Desk Lamp\",\n    \"price\": 35.0,\n    \"categoryId\": 2\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/products-api/products/103"
+          ]
+        },
+        "body": "{\n  \"id\": 103,\n  \"sku\": \"SKU-103\",\n  \"name\": \"Wireless Mouse\",\n  \"price\": 24.99,\n  \"categoryId\": 1\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 101,\n  \"sku\": \"SKU-101\",\n  \"name\": \"Mechanical Keyboard\",\n  \"price\": 79.9,\n  \"categoryId\": 1\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "categories": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Electronics\",\n    \"parentId\": null\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Home Office\",\n    \"parentId\": null\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/products-api/categories/3"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"name\": \"Accessories\",\n  \"parentId\": null\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 2,\n  \"name\": \"Home & Office\",\n  \"parentId\": null\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "inventory": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"productId\": 101,\n    \"warehouse\": \"WH-NORTH\",\n    \"quantity\": 42\n  },\n  {\n    \"id\": 2,\n    \"productId\": 102,\n    \"warehouse\": \"WH-SOUTH\",\n    \"quantity\": 0\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/products-api/inventory/3"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"productId\": 103,\n  \"warehouse\": \"WH-NORTH\",\n  \"quantity\": 250\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 2,\n  \"productId\": 102,\n  \"warehouse\": \"WH-SOUTH\",\n  \"quantity\": 120\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ]
+  }
+}

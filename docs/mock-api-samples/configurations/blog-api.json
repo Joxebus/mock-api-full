@@ -1,0 +1,154 @@
+{
+  "name": "blog-api",
+  "description": "Posts, comments and tags for a simple blog.",
+  "termsOfService": "http://example.com/terms/",
+  "version": "1.0.0",
+  "contact": {
+    "name": "Mock API Team",
+    "url": "http://example.com/support",
+    "email": "support@example.com"
+  },
+  "license": {
+    "name": "Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+  },
+  "secured": false,
+  "authConfig": null,
+  "paths": {
+    "posts": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"title\": \"Hello world\",\n    \"authorId\": 1,\n    \"published\": true,\n    \"tags\": [\n      \"intro\"\n    ]\n  },\n  {\n    \"id\": 2,\n    \"title\": \"Mocking APIs for fun\",\n    \"authorId\": 2,\n    \"published\": true,\n    \"tags\": [\n      \"testing\",\n      \"api\"\n    ]\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/blog-api/posts/3"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"title\": \"Third post\",\n  \"authorId\": 1,\n  \"published\": false,\n  \"tags\": [\n    \"news\"\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"title\": \"Third post (edited)\",\n  \"authorId\": 1,\n  \"published\": true,\n  \"tags\": [\n    \"news\"\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "comments": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 11,\n    \"postId\": 1,\n    \"author\": \"erin\",\n    \"text\": \"Welcome!\"\n  },\n  {\n    \"id\": 12,\n    \"postId\": 2,\n    \"author\": \"frank\",\n    \"text\": \"Great write-up.\"\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/blog-api/comments/13"
+          ]
+        },
+        "body": "{\n  \"id\": 13,\n  \"postId\": 2,\n  \"author\": \"dave\",\n  \"text\": \"Very useful, thanks!\"\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 13,\n  \"postId\": 2,\n  \"author\": \"dave\",\n  \"text\": \"Very useful, thanks! (edited)\"\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "tags": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"intro\",\n    \"postCount\": 1\n  },\n  {\n    \"id\": 2,\n    \"name\": \"testing\",\n    \"postCount\": 1\n  },\n  {\n    \"id\": 3,\n    \"name\": \"api\",\n    \"postCount\": 1\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/blog-api/tags/4"
+          ]
+        },
+        "body": "{\n  \"id\": 4,\n  \"name\": \"news\",\n  \"postCount\": 1\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"name\": \"apis\",\n  \"postCount\": 1\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ]
+  }
+}

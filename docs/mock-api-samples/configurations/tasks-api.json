@@ -1,0 +1,154 @@
+{
+  "name": "tasks-api",
+  "description": "Projects, tasks and labels for a to-do style app.",
+  "termsOfService": "http://example.com/terms/",
+  "version": "1.0.0",
+  "contact": {
+    "name": "Mock API Team",
+    "url": "http://example.com/support",
+    "email": "support@example.com"
+  },
+  "license": {
+    "name": "Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+  },
+  "secured": false,
+  "authConfig": null,
+  "paths": {
+    "projects": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Onboarding\",\n    \"owner\": \"bob\",\n    \"archived\": false\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Q1 Planning\",\n    \"owner\": \"carol\",\n    \"archived\": true\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/tasks-api/projects/3"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"name\": \"Website redesign\",\n  \"owner\": \"alice\",\n  \"archived\": false\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"name\": \"Website redesign v2\",\n  \"owner\": \"alice\",\n  \"archived\": false\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "tasks": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 21,\n    \"projectId\": 1,\n    \"title\": \"Create accounts\",\n    \"done\": true,\n    \"dueDate\": \"2026-01-10\"\n  },\n  {\n    \"id\": 22,\n    \"projectId\": 1,\n    \"title\": \"Write welcome guide\",\n    \"done\": false,\n    \"dueDate\": \"2026-01-20\"\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/tasks-api/tasks/23"
+          ]
+        },
+        "body": "{\n  \"id\": 23,\n  \"projectId\": 3,\n  \"title\": \"Draft wireframes\",\n  \"done\": false,\n  \"dueDate\": \"2026-02-01\"\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 23,\n  \"projectId\": 3,\n  \"title\": \"Draft wireframes\",\n  \"done\": true,\n  \"dueDate\": \"2026-02-01\"\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "labels": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"urgent\",\n    \"color\": \"#fd7e14\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"nice-to-have\",\n    \"color\": \"#20c997\"\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/tasks-api/labels/3"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"name\": \"blocked\",\n  \"color\": \"#dc3545\"\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 2,\n  \"name\": \"nice-to-have\",\n  \"color\": \"#0dcaf0\"\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "name": "users-api",
+  "description": "Users, roles and sessions for a generic identity service.",
+  "termsOfService": "http://example.com/terms/",
+  "version": "1.0.0",
+  "contact": {
+    "name": "Mock API Team",
+    "url": "http://example.com/support",
+    "email": "support@example.com"
+  },
+  "license": {
+    "name": "Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+  },
+  "secured": false,
+  "authConfig": null,
+  "paths": {
+    "users": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Alice Smith\",\n    \"email\": \"alice@example.com\",\n    \"active\": true\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Bob Jones\",\n    \"email\": \"bob@example.com\",\n    \"active\": false\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/users-api/users/3"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"name\": \"Carol White\",\n  \"email\": \"carol@example.com\",\n  \"active\": true\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 1,\n  \"name\": \"Alice Smith-Brown\",\n  \"email\": \"alice@example.com\",\n  \"active\": true\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "roles": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"admin\",\n    \"permissions\": [\n      \"read\",\n      \"write\",\n      \"delete\"\n    ]\n  },\n  {\n    \"id\": 2,\n    \"name\": \"editor\",\n    \"permissions\": [\n      \"read\",\n      \"write\"\n    ]\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/users-api/roles/3"
+          ]
+        },
+        "body": "{\n  \"id\": 3,\n  \"name\": \"auditor\",\n  \"permissions\": [\n    \"read\"\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": 2,\n  \"name\": \"editor\",\n  \"permissions\": [\n    \"read\",\n    \"write\",\n    \"publish\"\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ],
+    "sessions": [
+      {
+        "method": "GET",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "[\n  {\n    \"id\": \"s-1001\",\n    \"userId\": 1,\n    \"createdAt\": \"2026-01-15T08:00:00Z\",\n    \"expiresAt\": \"2026-01-15T16:00:00Z\"\n  },\n  {\n    \"id\": \"s-1002\",\n    \"userId\": 2,\n    \"createdAt\": \"2026-01-15T09:30:00Z\",\n    \"expiresAt\": \"2026-01-15T17:30:00Z\"\n  }\n]"
+      },
+      {
+        "method": "POST",
+        "statusCode": 201,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ],
+          "Location": [
+            "/api/users-api/sessions/s-1003"
+          ]
+        },
+        "body": "{\n  \"id\": \"s-1003\",\n  \"userId\": 3,\n  \"createdAt\": \"2026-01-15T10:00:00Z\",\n  \"expiresAt\": \"2026-01-15T18:00:00Z\"\n}"
+      },
+      {
+        "method": "PUT",
+        "statusCode": 200,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": "{\n  \"id\": \"s-1001\",\n  \"userId\": 1,\n  \"createdAt\": \"2026-01-15T08:00:00Z\",\n  \"expiresAt\": \"2026-01-15T20:00:00Z\"\n}"
+      },
+      {
+        "method": "DELETE",
+        "statusCode": 204,
+        "headers": {
+          "X-Mock-Source": [
+            "mock-api"
+          ]
+        },
+        "body": null
+      }
+    ]
+  }
+}
