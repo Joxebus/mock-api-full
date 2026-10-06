@@ -26,7 +26,9 @@ COPY --from=build /app/build/libs/*.jar app.jar
 
 # The service writes YAML configurations here; mount a volume to persist them.
 ENV FILES_UPLOAD_FOLDER=/data/configurations/
+# Port Spring Boot listens on (server.port); override with -e SERVER_PORT=...
+ENV SERVER_PORT=8090
 
-EXPOSE 8080
+EXPOSE 8090
 USER spring
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
