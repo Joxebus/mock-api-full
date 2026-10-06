@@ -30,11 +30,11 @@ Two containers run the system:
 | `frontend` | `mock-api-ui:latest` | **8081**  | 80             | React SPA served by nginx (+ proxy)    |
 
 The frontend's nginx serves the built SPA **and reverse-proxies** the backend
-routes (`/config`, `/endpoint`, `/api/`) to the `backend` container. The browser
-therefore talks to a single origin (`http://localhost:8081`), so **no CORS** is
-involved in the containerized setup. The backend is also published on `:8090`
-for direct access from Postman or curl. The backend port is configurable with
-`BACKEND_PORT` (see [Configuration reference](#configuration-reference)).
+routes (`/config`, `/endpoint`, `/api/`). In Codespaces, nginx reaches the backend
+through the Docker host gateway and its published port because bridge peer traffic
+may be unavailable. The browser talks to the UI's single origin; backend CORS still
+needs the forwarded UI origin for write requests. The backend port is configurable
+with `BACKEND_PORT` (see [Configuration reference](#configuration-reference)).
 
 > Running the backend outside Docker (`./gradlew bootRun`) still uses Spring Boot's
 > default **8080**, which is what the frontend's Vite dev proxy (`npm run dev`) targets.
@@ -110,6 +110,32 @@ docker compose down
 docker compose down -v
 ```
 
+### Testing in GitHub Codespaces
+
+Open the **Ports** tab and open forwarded port **8081**. The UI makes API requests
+to its own origin; nginx then reaches the backend over the Compose network, so
+you do not need to forward port 8090 for the UI to work. Before starting Compose,
+set the frontend's forwarded HTTPS origin as the backend CORS allowlist (use the
+origin only, without a trailing slash or path):
+
+```bash
+export CORS_ALLOWED_ORIGINS="https://${CODESPACE_NAME}-8081.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+docker compose up --build -d
+```
+
+To check the services from the Codespace terminal:
+
+```bash
+docker compose ps
+curl -i http://localhost:8090/endpoint
+curl -i http://localhost:8081/endpoint
+```
+
+Both endpoint requests should return HTTP 200 (initially with an empty list).
+If the first works and the second does not, inspect the proxy and backend logs:
+`docker compose logs frontend backend`. If both work but UI writes fail, confirm
+`CORS_ALLOWED_ORIGINS` matches the exact forwarded UI origin shown in the browser.
+
 ## The images
 
 ### Backend image (`mock-api`)
@@ -149,8 +175,9 @@ Multi-stage build (`mock-api-frontend/Dockerfile`):
 2. **Runtime stage** — `nginx:1.27-alpine`. Copies `nginx.conf` to
    `/etc/nginx/templates/default.conf.template` and the built bundle to
    `/usr/share/nginx/html`. At startup the nginx image runs `envsubst` on the
-   template, replacing `${BACKEND_UPSTREAM}` (default `http://backend:8090`), and
-   writes the result to `/etc/nginx/conf.d/default.conf`. Serves on **80**
+  template, replacing `${BACKEND_UPSTREAM}` (Compose sets this to
+  `http://host.docker.internal:8090`; standalone image default is
+  `http://backend:8090`), and writes the result to `/etc/nginx/conf.d/default.conf`. Serves on **80**
    (published as host **8081**).
 
 ## Networking & the nginx reverse proxy
@@ -163,8 +190,9 @@ Multi-stage build (`mock-api-frontend/Dockerfile`):
       try_files $uri $uri/ /index.html;   # e.g. /apis/new resolves to the SPA
   }
   ```
-- **Proxy the backend routes** to the `backend` service over the Compose network
-  (`${BACKEND_UPSTREAM}`, `http://backend:8090` by default):
+- **Proxy the backend routes** to `${BACKEND_UPSTREAM}`. Compose routes through
+  `host.docker.internal` to the backend's published port; standalone containers
+  can use the `backend` service name on their shared network:
   ```nginx
   location /config   { proxy_pass ${BACKEND_UPSTREAM}; ... }
   location /endpoint { proxy_pass ${BACKEND_UPSTREAM}; ... }
@@ -178,8 +206,9 @@ Multi-stage build (`mock-api-frontend/Dockerfile`):
 > (breaking `/apis/new`). Matching `/api/` restricts the proxy to real mock calls
 > and lets SPA routes fall through to `index.html`.
 
-`backend` resolves via Docker's internal DNS (the Compose service name); no
-host networking or hard-coded IPs are needed.
+Compose maps `host.docker.internal` to Docker's host gateway with `host-gateway`,
+avoiding a hard-coded gateway IP. In a regular Docker setup, the frontend can
+instead use `http://backend:8090` directly on the shared Compose network.
 
 ## Persistence
 
@@ -213,8 +242,8 @@ Environment variables (set in `docker-compose.yml` or via `-e`):
 |-----------------------|---------|----------------------------|-----------------------------------------------------|
 | `SERVER_PORT`         | backend | `8090`                     | Port Spring Boot listens on (`server.port`).        |
 | `FILES_UPLOAD_FOLDER` | backend | `/data/configurations/`    | Directory where YAML configurations are persisted.  |
-| `cors.allowed-origins`| backend | `http://localhost:5173`    | CORS origins for `/config` & `/endpoint`. Not needed in the container setup (nginx makes calls same-origin); relevant only if the SPA calls the backend cross-origin. Pass as `CORS_ALLOWED_ORIGINS` / `--cors.allowed-origins`. |
-| `BACKEND_UPSTREAM`    | frontend | `http://backend:8090`     | Where nginx proxies `/config`, `/endpoint` and `/api/`. Read at container start. |
+| `CORS_ALLOWED_ORIGINS` | backend | `http://localhost:5173`  | Allowed browser origins for `/config` and `/endpoint`. Set to the forwarded UI origin in Codespaces. |
+| `BACKEND_UPSTREAM`    | frontend | `http://backend:8090`     | Where nginx proxies `/config`, `/endpoint` and `/api/`. Compose overrides this with the host-gateway route. |
 
 Build args (set under `build.args` or via `--build-arg`):
 
