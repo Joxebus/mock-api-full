@@ -1,9 +1,14 @@
+# Backend port (inside the container and published on the host). Override with
+# e.g. `BACKEND_PORT=9090 docker compose up --build -d` (or set it in a .env file).
+
 services:
   backend:
     build:
       context: ./mock-api-backend
     image: mock-api:latest
     environment:
+      # Port Spring Boot listens on (maps to server.port).
+      SERVER_PORT: ${BACKEND_PORT:-8090}
       # Where the service persists YAML configurations (backed by a named volume).
       FILES_UPLOAD_FOLDER: /data/configurations/
       # CORS origins allowed for /config and /endpoint. The browser issues a
@@ -13,15 +18,21 @@ services:
     volumes:
       - mock_api_data:/data/configurations
     # Exposed for direct access / debugging; the UI reaches it over the internal
-    # network as http://backend:8080 (see mock-api-ui/nginx.conf).
+    # network as http://backend:${BACKEND_PORT} (see mock-api-frontend/nginx.conf).
     ports:
-      - "8080:8080"
+      - "${BACKEND_PORT:-8090}:${BACKEND_PORT:-8090}"
     restart: unless-stopped
 
   frontend:
     build:
       context: ./mock-api-frontend
+      args:
+        # Backend URL shown to users (e.g. "Copy curl"), as reachable from the host.
+        VITE_BACKEND_URL: http://localhost:${BACKEND_PORT:-8090}
     image: mock-api-ui:latest
+    environment:
+      # Where nginx proxies /config, /endpoint and /api/ (substituted into nginx.conf).
+      BACKEND_UPSTREAM: http://backend:${BACKEND_PORT:-8090}
     depends_on:
       - backend
     ports:

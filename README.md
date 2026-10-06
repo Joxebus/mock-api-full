@@ -1,9 +1,9 @@
 # mock-api-full
 
-This project use git subtree to include the `mock-api` project as a subdirectory. 
+This project uses git subtree to include the `mock-api` and `mock-api-ui` projects as subdirectories.
 
-- The `mock-api` project is a Spring Boot application that provides a mock API backend for testing and development purposes.
-- The `mock-api-ui` project is a React + Typescript application that provides a UI to manage the mock API.
+- `mock-api-backend/` (the `mock-api` project) is a Spring Boot application that provides a mock API backend for testing and development purposes.
+- `mock-api-frontend/` (the `mock-api-ui` project) is a React + TypeScript application that provides a UI to manage the mock API.
 
 ## Run the project with Docker
 
@@ -14,6 +14,9 @@ For more information, see [DOCKER_CONFIG.md](./DOCKER_CONFIG.md)
 # Build both images and start the stack in the background
 docker compose up --build -d
 ```
+
+- UI: http://localhost:8081
+- Backend: http://localhost:8090 (change it with `BACKEND_PORT=9090 docker compose up --build -d`)
 
 ### 🚀 Features Preview
 
@@ -39,8 +42,8 @@ git subtree pull --prefix=mock-api-frontend git@github.com:Joxebus/mock-api-ui.g
 ## Push changes to the projects
 
 ```shell
-git subtree push --prefix=mock-api-backend main
-git subtree push --prefix=mock-api-frontend main
+git subtree push --prefix=mock-api-backend git@github.com:Joxebus/mock-api.git main
+git subtree push --prefix=mock-api-frontend git@github.com:Joxebus/mock-api-ui.git main
 ```
 
 ## Docs
